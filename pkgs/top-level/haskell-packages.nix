@@ -80,6 +80,10 @@ in {
       llvmPackages = pkgs.llvmPackages_12;
     };
 
+    ghc99Binary = callPackage ../development/compilers/ghc/9.9-binary.nix {
+      llvmPackages = pkgs.llvmPackages_12;
+    };
+
     ghc884 = callPackage ../development/compilers/ghc/8.8.4.nix {
       bootPkgs =
         # aarch64 ghc865Binary gets SEGVs due to haskell#15449 or similar
