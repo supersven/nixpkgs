@@ -18,6 +18,7 @@ let
     "ghc8107Binary"
     "ghc924Binary"
     "ghc963Binary"
+    "ghc9101Binary"
     # ghcjs
     "ghcjs"
     "ghcjs810"
@@ -67,6 +68,10 @@ in {
     };
 
     ghc963Binary = callPackage ../development/compilers/ghc/9.6.3-binary.nix {
+      llvmPackages = pkgs.llvmPackages_15;
+    };
+
+    ghc9101Binary = callPackage ../development/compilers/ghc/9.10.1-binary.nix {
       llvmPackages = pkgs.llvmPackages_15;
     };
 
@@ -382,6 +387,8 @@ in {
           # With both 9.6.3 and 9.6.4 binary it is impossible to link against
           # the clock package (probably a hsc2hs problem).
           packages.ghc963
+        else if stdenv.hostPlatform.isRiscV64 then
+          packages.ghc9101Binary
         else
           packages.ghc963Binary;
       inherit (buildPackages.python3Packages) sphinx;
@@ -408,6 +415,8 @@ in {
           # With both 9.6.3 and 9.6.4 binary it is impossible to link against
           # the clock package (probably a hsc2hs problem).
           packages.ghc963
+        else if stdenv.hostPlatform.isRiscV64 then
+          packages.ghc9101Binary
         else
           packages.ghc963Binary;
       inherit (buildPackages.python3Packages) sphinx;
@@ -476,6 +485,12 @@ in {
       buildHaskellPackages = bh.packages.ghc963Binary;
       ghc = bh.compiler.ghc963Binary;
       compilerConfig = callPackage ../development/haskell-modules/configuration-ghc-9.6.x.nix { };
+      packageSetConfig = bootstrapPackageSet;
+    };
+    ghc9101Binary = callPackage ../development/haskell-modules {
+      buildHaskellPackages = bh.packages.ghc9101Binary;
+      ghc = bh.compiler.ghc9101Binary;
+      compilerConfig = callPackage ../development/haskell-modules/configuration-ghc-9.10.x.nix { };
       packageSetConfig = bootstrapPackageSet;
     };
     ghc8107 = callPackage ../development/haskell-modules {
