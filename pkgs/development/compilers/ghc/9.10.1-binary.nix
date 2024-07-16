@@ -108,6 +108,19 @@ let
           { nixPackage = libiconv; fileToCheckFor = null; }
         ];
       };
+      riscv64-linux = {
+        variantSuffix = "";
+        src = {
+          url = "https://github.com/supersven/ghc-riscv-bindist/raw/main/ghc-9.10.1-riscv64-unknown-linux.tar.gz";
+          sha256 = "6f766a6b5e3186579f488dae14004257265795f31b864e0a0fbed8860d9811ac";
+        };
+        exePathForLibraryCheck = null; # we don't have a library check for darwin yet
+        archSpecificLibraries = [
+          { nixPackage = gmp; fileToCheckFor = null; }
+          { nixPackage = ncurses6; fileToCheckFor = null; }
+          { nixPackage = libiconv; fileToCheckFor = null; }
+        ];
+      };
     };
     # Binary distributions for the musl libc for the respective system.
     musl = {
