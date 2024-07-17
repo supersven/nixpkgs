@@ -117,8 +117,8 @@ let
         exePathForLibraryCheck = null; # we don't have a library check for darwin yet
         archSpecificLibraries = [
           { nixPackage = gmp; fileToCheckFor = null; }
-          { nixPackage = ncurses6; fileToCheckFor = null; }
-          { nixPackage = libiconv; fileToCheckFor = null; }
+          { nixPackage = ncurses6; fileToCheckFor = "libtinfo.so.6"; }
+          { nixPackage = numactl; fileToCheckFor = null; }
         ];
       };
     };
